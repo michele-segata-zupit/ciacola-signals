@@ -1,0 +1,34 @@
+<p>signals examples</p>
+<div>
+{{counter()}}
+
+<button (click)="incrementCounter()">Increment</button>
+<button (click)="decrementCounter()">Decrement</button>
+<button (click)="resetCounter()">Reset</button>
+
+  @if (counterHistory.length > 0) {
+    <div>
+      <p>Counter History:</p>
+      <ul>
+        @for (value of counterHistory; track value) {
+          <li>{{ value }}</li>
+        }
+      </ul>
+    </div>
+  }
+
+</div>
+<div>
+Counter in binary: {{ binaryCounter()}}
+</div>
+
+<div>
+  <p>Books</p>
+  <ul>
+      @for (book of books(); track book.id) {
+        <li>
+          {{ book.title }} - {{ book.author.firstName }} {{book.author.lastName}} ({{ book.year }})
+        </li>
+      }
+    </ul>
+</div>

@@ -1,5 +1,6 @@
 import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import {Signals} from './signals/signals';
 
 export interface User {
   id: number;
@@ -9,12 +10,13 @@ export interface User {
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, Signals],
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })
 export class App {
   protected readonly title = signal('signal-test');
+  protected readonly counter = signal(0);
 
 protected readonly users = signal<User[]>([
     { id: 1, name: 'John Doe', email: 'asd@asd.it'}
@@ -37,5 +39,9 @@ protected readonly users = signal<User[]>([
       updatedUsers[0] = {...updatedUsers[0], name: 'Updated Name'};
       return updatedUsers;
     });
+  }
+
+  incrementCounter() {
+    this.counter.set(this.counter() + Math.random());
   }
 }
