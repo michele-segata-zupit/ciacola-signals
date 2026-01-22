@@ -24,6 +24,7 @@ export interface Book {
 export class Signals {
 
   protected readonly counter = signal(0);
+  // NB: computed signals are read-only, they cannot be set or updated
   protected readonly binaryCounter = computed(() => this.counter().toString(2));
   protected readonly books = signal<Book[]>([]);
   protected readonly counterHistory : number[] = [];
@@ -50,17 +51,6 @@ export class Signals {
     } else {
       this.counter.set(this.counter() - 1);
     }
-  }
-
-  decrementCounterAlt() {
-    this.counter.update(c => {
-      if (c === 0) {
-        console.log('Counter is already at zero, cannot decrement further.');
-        return c;
-      } else {
-        return c - 1;
-      }
-    });
   }
 
   resetCounter() {
