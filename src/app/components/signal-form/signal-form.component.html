@@ -8,7 +8,7 @@
     <input type="radio" id="pg" formControlName="tipoSoggetto" [value]="TipoSoggetto.PERSONA_GIURIDICA"/>
   </div>
 
-  @if (tipoSoggetoChange() === TipoSoggetto.PERSONA_FISICA) {
+  @if (isPersonaFisica()) {
     <div>
       <label for="cognome">Cognome</label>
       <input type="text" name="cognome" formControlName="cognome"/>
@@ -18,7 +18,7 @@
       <label for="nome">Nome</label>
       <input type="text" name="nome" formControlName="nome"/>
     </div>
-  } @else if(tipoSoggetoChange() === TipoSoggetto.PERSONA_GIURIDICA) {
+  } @else if(isPersonaGiuridica()) {
     <div>
       <label for="ragioneSociale">Ragione sociale</label>
       <input type="text" name="ragioneSociale" formControlName="ragioneSociale"/>

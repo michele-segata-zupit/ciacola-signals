@@ -1,4 +1,4 @@
-import {Component, effect, OnInit} from '@angular/core';
+import {Component, computed, effect} from '@angular/core';
 import {FormBuilder, FormGroup, ReactiveFormsModule} from '@angular/forms';
 import {TipoSoggetto} from '../../models/tipo-soggetto';
 import {toSignal} from '@angular/core/rxjs-interop';
@@ -12,10 +12,12 @@ import {toSignal} from '@angular/core/rxjs-interop';
   styleUrl: './signal-form.component.scss',
   standalone: true
 })
-export class SignalForm implements OnInit {
+export class SignalForm {
   form: FormGroup;
   public readonly TipoSoggetto = TipoSoggetto;
-  public readonly tipoSoggetoChange;
+  public readonly tipoSoggettoSignal;
+  isPersonaFisica = computed(() => this.tipoSoggettoSignal() === TipoSoggetto.PERSONA_FISICA);
+  isPersonaGiuridica = computed(() => this.tipoSoggettoSignal() === TipoSoggetto.PERSONA_GIURIDICA);
 
   constructor(private readonly fb: FormBuilder) {
     this.form = this.fb.group({
@@ -26,16 +28,12 @@ export class SignalForm implements OnInit {
         pIva: [null],
       }
     );
-    this.tipoSoggetoChange = toSignal<TipoSoggetto>(this.form?.controls['tipoSoggetto']?.valueChanges);
+    this.tipoSoggettoSignal = toSignal<TipoSoggetto>(this.form?.controls['tipoSoggetto']?.valueChanges);
     effect(() => {
-      const tipoSoggettoValue = this.tipoSoggetoChange();
+      const tipoSoggettoValue = this.tipoSoggettoSignal();
       console.log('tipoSoggetto changed to:', tipoSoggettoValue);
       this.manageTipOSoggettoChange(tipoSoggettoValue);
     });
-  }
-
-  ngOnInit(): void {
-
   }
 
   manageTipOSoggettoChange(tipoSoggetto: TipoSoggetto | undefined) {
