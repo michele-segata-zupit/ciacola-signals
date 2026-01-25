@@ -1,0 +1,4 @@
+export enum TipoSoggetto {
+  PERSONA_FISICA = 'PERSONA_FISICA',
+  PERSONA_GIURIDICA = 'PERSONA_GIURIDICA'
+}

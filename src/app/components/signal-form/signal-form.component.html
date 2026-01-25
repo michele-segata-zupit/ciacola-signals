@@ -1,0 +1,33 @@
+<p>Reactive form with signals</p>
+<div [formGroup]="form">
+  <p>Tipo Sogetto:</p>
+  <div>
+    <label for="pf">Persona Fisica</label>
+    <input type="radio" id="pf" formControlName="tipoSoggetto" [value]="TipoSoggetto.PERSONA_FISICA"/>
+    <label for="pg">Persona Giuridica</label>
+    <input type="radio" id="pg" formControlName="tipoSoggetto" [value]="TipoSoggetto.PERSONA_GIURIDICA"/>
+  </div>
+
+  @if (tipoSoggetoChange() === TipoSoggetto.PERSONA_FISICA) {
+    <div>
+      <label for="cognome">Cognome</label>
+      <input type="text" name="cognome" formControlName="cognome"/>
+    </div>
+
+    <div>
+      <label for="nome">Nome</label>
+      <input type="text" name="nome" formControlName="nome"/>
+    </div>
+  } @else if(tipoSoggetoChange() === TipoSoggetto.PERSONA_GIURIDICA) {
+    <div>
+      <label for="ragioneSociale">Ragione sociale</label>
+      <input type="text" name="ragioneSociale" formControlName="ragioneSociale"/>
+    </div>
+
+    <div>
+      <label for="pIva">P. IVA</label>
+      <input type="text" name="pIva" formControlName="pIva"/>
+    </div>
+  }
+  <button type="submit" (click)="submit()">Submit</button>
+</div>
